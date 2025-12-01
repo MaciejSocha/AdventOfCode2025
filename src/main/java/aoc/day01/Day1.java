@@ -14,13 +14,13 @@ public class Day1 {
 
             //full circles
             int fullCirclesCount = distance / 100;
-            //zeroCount += fullCirclesCount;
+            zeroCount += fullCirclesCount;
             distance -= fullCirclesCount * 100;
 
             if (direction == 'L') {
                 if (position - distance < 0) {
                     distance -= position;
-                    //zeroCount++;
+                    if (position != 0) zeroCount++;
                     position = 100 - distance;
                 } else if (position - distance == 0) {
                     position -= distance;
@@ -32,7 +32,7 @@ public class Day1 {
             if (direction == 'R') {
                 if (position + distance > 100) {
                     distance -= 100 - position;
-                    //zeroCount++;
+                    if (position != 0) zeroCount++;
                     position = distance;
                 } else if (position + distance == 100) {
                     zeroCount++;
