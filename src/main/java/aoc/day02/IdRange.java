@@ -14,7 +14,7 @@ public class IdRange {
         long result = 0;
 
         for (long i = Long.parseLong(start); i <= Long.parseLong(end); i++) {
-            result += checkId(i);
+            result += checkIdMultipleTimes(i);
         }
 
         return result;
@@ -27,6 +27,17 @@ public class IdRange {
         if (id.length() % 2 != 0) return result;
 
         if (id.substring(0, id.length() / 2).equals(id.substring(id.length() / 2))) result = numericId;
+
+        return result;
+    }
+
+    private long checkIdMultipleTimes(long numericId) {
+        long result = 0;
+        String id = String.valueOf(numericId);
+
+        String t = id + id;
+        String ss = t.substring(1, t.length()-1);
+        if (ss.contains(id)) result += numericId;
 
         return result;
     }
