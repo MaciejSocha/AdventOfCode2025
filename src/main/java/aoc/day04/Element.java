@@ -1,7 +1,7 @@
 package aoc.day04;
 
 public class Element {
-    private final boolean isRoll;
+    private boolean isRoll;
     private final int rowPosition;
     private final int columnPosition;
     private boolean isInFirstRow;
@@ -17,6 +17,10 @@ public class Element {
 
     public boolean isElementRoll() {
         return isRoll;
+    }
+
+    public void setNotRoll() {
+        isRoll = false;
     }
 
     public int getRowPosition() {
