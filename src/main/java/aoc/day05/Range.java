@@ -18,4 +18,12 @@ public class Range {
         if (number >= startNumber && number <= endNumber) return true;
         return false;
     }
+
+    public long getStartNumber() {
+        return startNumber;
+    }
+
+    public long getEndNumber() {
+        return endNumber;
+    }
 }

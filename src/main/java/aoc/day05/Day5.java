@@ -3,6 +3,7 @@ package aoc.day05;
 import utils.FileReader;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Day5 {
@@ -28,5 +29,30 @@ public class Day5 {
         }
 
         System.out.println(sum);
+
+        rangesList.sort(Comparator.comparingLong(Range::getStartNumber));
+
+        long start = rangesList.get(0).getStartNumber();
+        long end = rangesList.get(0).getEndNumber();
+        long numbers = 0;
+
+        for (int i = 0; i < rangesList.size(); i++) {
+            if (i == rangesList.size() - 1) {
+                numbers += end - start + 1;
+                break;
+            }
+
+            if ((end >= rangesList.get(i + 1).getStartNumber())) {//overlapped
+                if ((rangesList.get(i + 1).getEndNumber() >= end))
+                    end = rangesList.get(i + 1).getEndNumber();
+                else continue;
+            } else {
+                numbers += end - start + 1;
+                start = rangesList.get(i + 1).getStartNumber();
+                end = rangesList.get(i + 1).getEndNumber();
+            }
+        }
+
+        System.out.println(numbers);
     }
 }

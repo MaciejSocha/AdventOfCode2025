@@ -9,7 +9,7 @@ My adventofcode.com solutions for 2024 event!
 
 ![Day04](https://img.shields.io/badge/Day4-Done-brightgreen.svg)
 
-![Day05](https://img.shields.io/badge/Day5-Waiting-lightgrey.svg)
+![Day05](https://img.shields.io/badge/Day5-Done-brightgreen.svg)
 
 ![Day06](https://img.shields.io/badge/Day6-Waiting-lightgrey.svg)
 
