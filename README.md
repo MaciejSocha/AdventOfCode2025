@@ -1,5 +1,5 @@
-# AdventOfCode2024
-My adventofcode.com solutions for 2024 event!
+# AdventOfCode2025
+My adventofcode.com solutions for 2025 event!
 
 ![Day01](https://img.shields.io/badge/Day1-Done-brightgreen.svg)
 
@@ -11,7 +11,7 @@ My adventofcode.com solutions for 2024 event!
 
 ![Day05](https://img.shields.io/badge/Day5-Done-brightgreen.svg)
 
-![Day06](https://img.shields.io/badge/Day6-Waiting-lightgrey.svg)
+![Day06](https://img.shields.io/badge/Day6-Done-brightgreen.svg)
 
 ![Day07](https://img.shields.io/badge/Day7-Waiting-lightgrey.svg)
 

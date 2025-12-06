@@ -4,16 +4,15 @@ import utils.FileReader;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Day6 {
     public static void main(String[] args) {
         String input = FileReader.read("src/main/resources/06data.txt");
 
-        List<List<Long>> all = getAllNumbersLists(input);
-        List<String> symbols = getSymbols(input);
+        List<List<Long>> all = DataReader.getAllNumbersListsLongs(input);
+        List<String> symbols = DataReader.getSymbols(input);
 
+        //part 1
         long finalResult = 0;
         for (int i = 0; i < symbols.size(); i++) {
             String symbol = symbols.get(i);
@@ -21,46 +20,74 @@ public class Day6 {
             if (symbol.equals("+")) result = 0;
             if (symbol.equals("*")) result = 1;
 
-            for (int j = 0; j < all.size(); j++) {
-                if (symbol.equals("+")) result += all.get(j).get(i);
-                if (symbol.equals("*")) result *= all.get(j).get(i);
+            for (List<Long> longs : all) {
+                if (symbol.equals("+")) result += longs.get(i);
+                if (symbol.equals("*")) result *= longs.get(i);
             }
 
             finalResult += result;
         }
 
         System.out.println(finalResult);
-    }
 
-    private static List<List<Long>> getAllNumbersLists(String input) {
-        Pattern digitsPattern = Pattern.compile("\\d+");
-        List<List<Long>> all = new ArrayList<>();
+        //part2
+        String[] lines = input.split("\\R");
+        char[][] tab = new char[lines.length][];
+        for (int i = 0; i < lines.length; i++) {
+            tab[i] = lines[i].toCharArray();
+        }
 
-        for (String line : input.lines().toList()) {
-            Matcher digitsMatcher = digitsPattern.matcher(line);
-            List<Long> numbers = new ArrayList<>();
+        List<String> allData = new ArrayList<>();
+        long answer = 0;
+        for (int i = tab[0].length - 1; i >= 0; i--) {
+            StringBuilder sb = new StringBuilder();
+            boolean emptyColumn = true;
 
-            while (digitsMatcher.find()) {
-                numbers.add(Long.parseLong(digitsMatcher.group()));
+            for (int j = 0; j < tab.length; j++) {
+                char c = tab[j][i];
+                sb.append(c);
+                if (c != ' ') emptyColumn = false;
             }
 
-            if (!numbers.isEmpty()) all.add(numbers);
+            if (emptyColumn) {
+                answer += calculate(allData);
+                allData.clear();
+            } else {
+                String cleaned = sb.toString().strip();
+                allData.add(cleaned);
+            }
+
+            if (i == 0) {
+                answer += calculate(allData);
+            }
         }
 
-        return all;
+        System.out.println("---");
+        System.out.println(answer);
     }
 
-    private static List<String> getSymbols(String input) {
-        List<String> symbols = new ArrayList<>();
-        String line = input.lines().reduce((prv, cur) -> cur).orElse("");
-
-        Pattern symbolsPattern = Pattern.compile("[+*]");
-        Matcher symbolsMatcher = symbolsPattern.matcher(line);
-
-        while (symbolsMatcher.find()) {
-            symbols.add(symbolsMatcher.group());
+    private static long calculate(List<String> data) {
+        long result = 0;
+        boolean flag = false;
+        if (data.isEmpty()) return 0;
+        if (data.get(data.size() - 1).contains("+")) {
+            result = 0;
+            data.set(data.size() - 1, data.get(data.size() - 1).split("\\+")[0].trim());
+            flag = true;
+        } else if (data.get(data.size() - 1).contains("*")) {
+            result = 1;
+            data.set(data.size() - 1, data.get(data.size() - 1).split("\\*")[0].trim());
+            flag = false;
         }
 
-        return symbols;
+        for (String number : data) {
+            if (flag) {
+                result += Long.parseLong(number);
+            } else {
+                result *= Long.parseLong(number);
+            }
+        }
+
+        return result;
     }
 }
